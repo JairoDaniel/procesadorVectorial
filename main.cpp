@@ -1,4 +1,5 @@
 #include "alu.cpp"
+#include "pc.cpp"
 #include "iostream"
  #include <stdint.h>
 
@@ -6,6 +7,7 @@ int main() {
   
     // Declare an object of class geeks 
     Alu *alu1 = new Alu(); 
+    Pc * pc = new Pc();
   
     // accessing data member 
     alu1->setData(5,1,0);
