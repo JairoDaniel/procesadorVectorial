@@ -1,31 +1,41 @@
-#include "alu.cpp"
 #include "pc.cpp"
+#include "adder.cpp"
+#include "mux21.cpp"
+#include "bus32.cpp"
+#include "memoryI.cpp"
+
+#include "memoryD.cpp"
+#include "registerV.cpp"
+#include "alu.cpp"
 #include "iostream"
- #include <stdint.h>
+#include <bits/stdc++.h> 
+#include <stdint.h>
+#include <fstream>
+
+
+Pc * pc;
+Adder *sum;
+Mux21 *muxPc;
+Bus32 * busPcOut;
+MemoryI * memI ;
+
+void connections(){
+    busPcOut->setData(pc->getPc());
+    sum->add(busPcOut->getData(), 1);
+    muxPc->setA(busPcOut->getData());
+    muxPc->setB(sum->getResult());
+    pc->setPc(muxPc->getValue());
+    memI->setDir(busPcOut->getData());
+
+}
 
 int main() { 
-  
-    // Declare an object of class geeks 
-    Alu *alu1 = new Alu(); 
-    Pc * pc = new Pc();
-  
-    // accessing data member 
-    alu1->setData(5,1,0);
-  
-    uint8_t c;
-    c = alu1->function();
-    std::cout << "add: " << unsigned(c) <<std::endl; 
-    alu1->setData(5,1,1);
-    c = alu1->function();
-    std::cout << "sub: " << unsigned(c) <<std::endl; 
-    alu1->setData(5,1,2);
-    c = alu1->function();
-    std::cout << "xor: " << unsigned(c) <<std::endl; 
-    alu1->setData(5,1,3);
-    c = alu1->function();
-    std::cout << "scl: " << unsigned(c) <<std::endl; 
-    alu1->setData(5,1,4);
-    c = alu1->function();
-    std::cout << "scr: " << unsigned(c) <<std::endl; 
+    pc = new Pc();
+    sum = new Adder();
+    muxPc = new Mux21();
+    busPcOut= new Bus32();    
+    memI = new MemoryI();
+
+    connections();
     return 0; 
 } 
