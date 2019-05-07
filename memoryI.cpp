@@ -1,12 +1,12 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-
+#include <array>
 
 class MemoryI{
 private:
 	int direction;
-	int data[100];
+	std::array<int,100>data;
 public:
 	MemoryI(): direction(0){
 		std::ifstream file("code.txt");

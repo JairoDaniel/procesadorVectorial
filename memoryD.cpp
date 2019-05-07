@@ -3,25 +3,31 @@
 #include <stdio.h>
 #include <stdlib.h> 
 #include <unistd.h>
+#include <array>
 
 class MemoryD{
 private:
-	char mem[20000][4];
-public:
-	void saveData(int,char*);
-	char* readData(int);
+	std::array<char, 20000> mem;
+public:	
+	void saveData(int,std::array<char,4>);
+	std::array<char,4> readData(int);
 };
 
-void MemoryD::saveData(int pposMem, char pdata[4]){
+void MemoryD::saveData(int pposMem, std::array<char,4> pdata){
 	for (int i = 0; i < 4; i++){
-		mem[pposMem][i]= pdata[i];
+		mem[pposMem+i]= pdata[i];
 	}
 
 }
 
-char* MemoryD::readData(int pposMem){
-	usleep(1);
-	return mem[pposMem];
+std::array<char,4> MemoryD::readData(int pposMem){
+	std::array<char,4> temp;
+	for(int i = 0; i < 4; i++){
+		usleep(1);
+		temp[i]=mem[pposMem+i];
+	}
+
+	return temp;
 }
 
 

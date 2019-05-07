@@ -1,21 +1,23 @@
  #include <stdint.h>
 class Alu{
 private:
-	uint8_t a, b, op;
-	uint8_t addV();
-	uint8_t xorV();
-	uint8_t subV();
-	uint8_t sclV();
-	uint8_t scrV();
+	uint8_t op;
+	char a, b;
+	char addV();
+	char xorV();
+	char subV();
+	char sclV();
+	char scrV();
 public:
 	Alu():a(0),b(0), op(0){}
-	void setData(uint8_t, uint8_t, uint8_t);
-	uint8_t function();
+	void setData(uint8_t, uint8_t);
+	void setOp(uint8_t);
+	char function();
 	
 	
 };
 
-uint8_t Alu::function(){
+char Alu::function(){
 	switch(op){
 		case 0:
 			addV();
@@ -39,24 +41,27 @@ uint8_t Alu::function(){
 }
 
 
-void Alu::setData(uint8_t pA, uint8_t pB, uint8_t pOp){
+void Alu::setData(uint8_t pA, uint8_t pB){
 		a = pA;
 		b= pB;
-		op=pOp;
-	}
+}
 
-uint8_t Alu::addV(){
+void Alu::setOp(uint8_t pOp){
+		op=pOp;
+}
+
+char Alu::addV(){
 		return a+b;
 	}
-uint8_t Alu::xorV(){
+char Alu::xorV(){
 	return a^b;
 }
-uint8_t Alu::subV(){
+char Alu::subV(){
 		return a-b;
 	}
 
-uint8_t Alu::sclV(){
-	uint8_t temp;
+char Alu::sclV(){
+	char temp;
 	int8_t i;
 	for (i = 0; i < b; i++){
 		temp = a>>7;
@@ -66,8 +71,8 @@ uint8_t Alu::sclV(){
 	return a;
 }
 
-uint8_t Alu::scrV(){
-	uint8_t temp;
+char Alu::scrV(){
+	char temp;
 	int8_t i;
 	for (i = 0; i < b; i++){
 		temp = a&1;
