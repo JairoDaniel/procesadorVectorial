@@ -43,7 +43,7 @@ Adder *sumE;
 
 void connections(){
     int it=0;
-    while(it<6){
+    while(it<4){
     busPcOut->setData(pc->getPc());
     sum->add(busPcOut->getData(), 1);
     //muxPc->setA(busPcOut->getData());
@@ -97,28 +97,19 @@ void connections(){
     //BANDERAS
     regV->writeOp(temp);
 
-    LSUnit->setDir(dec->direction);
     LSUnit->setFlagM(dec->flagM);
     LSUnit->setRD(dec->RD);
     LSUnit->setWR(dec->WR);
 
     regE->setFlags(dec->rdFE, dec->wrFE);
-    regE->setA(dec->regA);
-    regE->setWR(dec->regWR);
+    regE->setA(dec->regAE);
+    regE->setWR(dec->regWRE);
 
     LSUnit->setDir(regE->read());
     sumE->add(regE->read(), 1);
     regE->write(sumE->getResult());
     regV->write(LSUnit->readData());
     LSUnit->storeData(regV->readStore());
-
-    printf("------------\n");
-    regV->printV(1);
-    printf("\n------------\n");
-    regV->printV(2);
-    printf("\n------------\n");
-    regV->printV(0);
-    printf("\n------------\n");
 
     it++;
 

@@ -10,7 +10,10 @@ private:
 	bool rdF, wrF;
 	int8_t regA, regWR;
 public:
-	RegisterE():regWR(0), regA(0), wrF(false), rdF(false){} 
+	RegisterE():regWR(0), regA(0), wrF(false), rdF(false){
+		reg[0]=0;
+		reg[1]=4;
+	} 
 	void write(int);
 	int read();
 	void setA(int8_t);

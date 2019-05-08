@@ -11,8 +11,8 @@ private:
 	int8_t regA, regB, regWR;
 public:
 	RegisterV():regWR(0), regA(0), regB(0), upperF(false), lowerF(false), wrF(false), wrFO(false),regRD(false){
-		reg[1]={(char)10,(char)10,(char)10,(char)10,(char)10,(char)10,(char)10,(char)10};
-		reg[2]={3,3,3,3,3,3,3,3};
+		reg[0]={(char)5,(char)5,(char)5,(char)5,(char)2,(char)2,(char)2,(char)2};
+		reg[1]={(char)0,(char)0,(char)0,(char)0,(char)0,(char)0,(char)0,(char)0};
 	} 
 	void write(std::array<char,4>);
 	void writeOp(std::array<char,8>);
@@ -23,14 +23,13 @@ public:
 	void setWR(int8_t);
 	void setFlags(bool, bool, bool, bool, bool);
 	std::array<char,4> readStore();
-	void printV(int);
 };
 
 void RegisterV::write(std::array<char,4> pdata){
 	if(wrF==true){
 		if(upperF==true){
 			for (int i = 3; i >=0 ; i--)
-					reg[regWR][i]=pdata[i];
+				reg[regWR][i]=pdata[i];
 		}
 		else{
 			for (int i = 7; i >= 4; i--)
@@ -68,8 +67,8 @@ std::array<char,8> RegisterV::readB(){
 
 std::array<char,4> RegisterV::readStore(){
 	std::array<char,4> temp = {0,0,0,0};
-		if(regRD==true){
-			if(upperF==true){
+	if(regRD==true){
+		if(upperF==true){
 			for (int i = 3; i >=0 ; i--)
 				temp[i]=reg[regA][i];
 		}
@@ -100,10 +99,4 @@ void RegisterV::setFlags(bool pUpper, bool pLower, bool pregRD, bool pwrF, bool 
 	regRD=pregRD;
 	wrF=pwrF;
 	wrFO=pwrFO;
-}
-
-void RegisterV::printV(int t){
-	for(int i=0; i<8; i++){
-		printf("%d  ", reg[t][i]);
-	}
 }

@@ -85,10 +85,10 @@ std::array<char,4> LoadStoreUnit::readData(){
 				temp = mem2->readData(direction-BASEM2);
 		}
 		else{
-			if(direction<BASEM3)
+			if(direction<BASEM2)
 				temp = mem3->readData(direction);
 			else
-				temp = mem4->readData(direction-BASEM4);
+				temp = mem4->readData(direction-BASEM2);
 		}
 	}
 	return temp;
@@ -103,10 +103,10 @@ void LoadStoreUnit::storeData(std::array<char,4> dataV){
 				mem2->saveData(direction-BASEM2, dataV);
 		}
 		else{
-			if(direction<BASEM3)
+			if(direction<BASEM2)
 				mem3->saveData(direction, dataV);
 			else
-				mem4->saveData(direction-BASEM4, dataV);
+				mem4->saveData(direction-BASEM2, dataV);
 		}
 	}
 }

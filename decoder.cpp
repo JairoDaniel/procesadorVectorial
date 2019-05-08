@@ -8,11 +8,11 @@ public:
 	//ALU
 	uint8_t op;
 	//LSU
-	int direction;
 	int8_t flagM;
 	bool RD, WR;
 	//REGE
 	bool rdFE, wrFE;
+	int8_t regAE, regWRE;
 
 public:
 	Decoder():instruction(0), opCode(0){}
@@ -37,12 +37,13 @@ void Decoder::decode(){
 		wrF=false;
 		wrFO=true;
 		op=0;
-		direction=0;
 		flagM=2;
 		RD=false;
 		WR=false;
 		rdFE=false;
 		wrFE=false;
+		regAE=0;
+		regWRE=0;
 	}
 	else if(opCode==1){
 		//SUBV
@@ -55,12 +56,13 @@ void Decoder::decode(){
 		wrF=false;
 		wrFO=true;
 		op=1;
-		direction=0;
 		flagM=2;
 		RD=false;
 		WR=false;
 		rdFE=false;
 		wrFE=false;
+		regAE=0;
+		regWRE=0;
 	}
 	else if(opCode==2){
 		//SUBV
@@ -73,12 +75,13 @@ void Decoder::decode(){
 		wrF=false;
 		wrFO=true;
 		op=2;
-		direction=0;
 		flagM=2;
 		RD=false;
 		WR=false;
 		rdFE=false;
 		wrFE=false;
+		regAE=0;
+		regWRE=0;
 	}
 	else if(opCode==3){
 		//SCLV
@@ -91,12 +94,13 @@ void Decoder::decode(){
 		wrF=false;
 		wrFO=true;
 		op=3;
-		direction=0;
 		flagM=2;
 		RD=false;
 		WR=false;
 		rdFE=false;
 		wrFE=false;
+		regAE=0;
+		regWRE=0;
 	}
 	else if(opCode==4){
 		//SCRV
@@ -109,13 +113,91 @@ void Decoder::decode(){
 		wrF=false;
 		wrFO=true;
 		op=4;
-		direction=0;
 		flagM=2;
 		RD=false;
 		WR=false;
 		rdFE=false;
 		wrFE=false;
+		regAE=0;
+		regWRE=0;
 	}
+	else if(opCode==5){
+		//LDVU
+		regA=0;
+		regB=0;
+		regWR=(instruction<<27)>>28;
+		upperF=true;
+		lowerF=false;
+		regRD=false;
+		wrF=true;
+		wrFO=false;
+		op=5;
+		flagM=(instruction<<31)>>31;
+		RD=true;
+		WR=false;
+		rdFE=true;
+		wrFE=false;
+		regAE=(instruction<<23)>>28;
+		regWRE=0;
+	}
+	else if(opCode==6){
+		//LDVL
+		regA=0;
+		regB=0;
+		regWR=(instruction<<27)>>28;
+		upperF=false;
+		lowerF=true;
+		regRD=false;
+		wrF=true;
+		wrFO=false;
+		op=5;
+		flagM=(instruction<<31)>>31;
+		RD=true;
+		WR=false;
+		rdFE=true;
+		wrFE=false;
+		regAE=(instruction<<23)>>28;
+		regWRE=0;
+	}
+	else if(opCode==7){
+		//STVU
+		regA=(instruction<<27)>>28;
+		regB=0;
+		regWR=0;
+		upperF=true;
+		lowerF=false;
+		regRD=true;
+		wrF=false;
+		wrFO=false;
+		op=5;
+		flagM=(instruction<<31)>>31;
+		RD=false;
+		WR=true;
+		rdFE=true;
+		wrFE=false;
+		regAE=(instruction<<23)>>28;
+		regWRE=0;
+	}
+	else if(opCode==8){
+		//STVL
+		regA=(instruction<<27)>>28;
+		regB=0;
+		regWR=0;
+		upperF=false;
+		lowerF=true;
+		regRD=true;
+		wrF=false;
+		wrFO=false;
+		op=5;
+		flagM=(instruction<<31)>>31;
+		RD=false;
+		WR=true;
+		rdFE=true;
+		wrFE=false;
+		regAE=(instruction<<23)>>28;;
+		regWRE=0;
+	}
+
 
 
 }

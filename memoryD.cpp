@@ -30,4 +30,3 @@ std::array<char,4> MemoryD::readData(int pposMem){
 	return temp;
 }
 
-
