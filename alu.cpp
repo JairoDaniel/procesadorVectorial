@@ -10,7 +10,7 @@ private:
 	char scrV();
 public:
 	Alu():a(0),b(0), op(0){}
-	void setData(uint8_t, uint8_t);
+	void setData(char, char);
 	void setOp(uint8_t);
 	char function();
 	
@@ -41,7 +41,7 @@ char Alu::function(){
 }
 
 
-void Alu::setData(uint8_t pA, uint8_t pB){
+void Alu::setData(char pA, char pB){
 		a = pA;
 		b= pB;
 }

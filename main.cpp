@@ -9,6 +9,7 @@
 #include "bus64.cpp"
 #include "alu.cpp"
 #include "registerE.cpp"
+#include "decoder.cpp"
 
 #include "iostream"
 #include <bits/stdc++.h> 
@@ -33,6 +34,7 @@ Alu * aluV4;
 Alu * aluV5;
 Alu * aluV6;
 Alu * aluV7;
+Decoder * dec;
 
 
 LoadStoreUnit * LSUnit;
@@ -40,18 +42,38 @@ RegisterE *regE;
 Adder *sumE;
 
 void connections(){
+    int it=0;
+    while(it<6){
     busPcOut->setData(pc->getPc());
     sum->add(busPcOut->getData(), 1);
-    muxPc->setA(busPcOut->getData());
-    muxPc->setB(sum->getResult());
-    pc->setPc(muxPc->getValue());
+    //muxPc->setA(busPcOut->getData());
+    //muxPc->setB(sum->getResult());
+    
     memI->setDir(busPcOut->getData());
+    pc->setPc(sum->getResult());
+    dec->setInst(memI->readMem());
+    dec->decode();
+
+    regV->setA(dec->regA);
+    regV->setB(dec->regB);
+    regV->setWR(dec->regWR);
+    regV->setFlags(dec->upperF, dec->lowerF, dec->regRD, dec->wrF, dec->wrFO);
 
 
 
     /**/
     busRegV1->setData(regV->readA());
     busRegV2->setData(regV->readB());
+
+    aluV0->setOp(dec->op);
+    aluV1->setOp(dec->op);
+    aluV2->setOp(dec->op);
+    aluV3->setOp(dec->op);
+    aluV4->setOp(dec->op);
+    aluV5->setOp(dec->op);
+    aluV6->setOp(dec->op);
+    aluV7->setOp(dec->op);
+
 
     aluV0->setData((int8_t)(busRegV1->getData())[0],(int8_t)(busRegV2->getData())[0] );
     aluV1->setData((int8_t)(busRegV1->getData())[1],(int8_t)(busRegV2->getData())[1] );
@@ -75,12 +97,32 @@ void connections(){
     //BANDERAS
     regV->writeOp(temp);
 
+    LSUnit->setDir(dec->direction);
+    LSUnit->setFlagM(dec->flagM);
+    LSUnit->setRD(dec->RD);
+    LSUnit->setWR(dec->WR);
+
+    regE->setFlags(dec->rdFE, dec->wrFE);
+    regE->setA(dec->regA);
+    regE->setWR(dec->regWR);
+
     LSUnit->setDir(regE->read());
-
-
+    sumE->add(regE->read(), 1);
+    regE->write(sumE->getResult());
     regV->write(LSUnit->readData());
     LSUnit->storeData(regV->readStore());
 
+    printf("------------\n");
+    regV->printV(1);
+    printf("\n------------\n");
+    regV->printV(2);
+    printf("\n------------\n");
+    regV->printV(0);
+    printf("\n------------\n");
+
+    it++;
+
+}
 
 
 
@@ -110,6 +152,7 @@ int main() {
     LSUnit = new LoadStoreUnit();
     regE = new RegisterE();
     sumE = new Adder();
+    dec = new Decoder();
 
     connections();
 

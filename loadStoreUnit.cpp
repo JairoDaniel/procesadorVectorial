@@ -76,20 +76,22 @@ bool LoadStoreUnit::getWR(){
 }
 
 std::array<char,4> LoadStoreUnit::readData(){
+	std::array<char,4> temp = {0,0,0,0};
 	if(RD==true){
 		if(flagM == 0){
 			if(direction<BASEM2)
-				return mem1->readData(direction);
+				temp = mem1->readData(direction);
 			else
-				return mem2->readData(direction-BASEM2);
+				temp = mem2->readData(direction-BASEM2);
 		}
 		else{
 			if(direction<BASEM3)
-				return mem3->readData(direction);
+				temp = mem3->readData(direction);
 			else
-				return mem4->readData(direction-BASEM4);
+				temp = mem4->readData(direction-BASEM4);
 		}
 	}
+	return temp;
 }
 
 void LoadStoreUnit::storeData(std::array<char,4> dataV){
