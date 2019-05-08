@@ -1,3 +1,4 @@
+#include <stdio.h>
 class Adder{
 private:
 	int result;

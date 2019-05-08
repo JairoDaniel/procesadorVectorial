@@ -194,8 +194,27 @@ void Decoder::decode(){
 		WR=true;
 		rdFE=true;
 		wrFE=false;
-		regAE=(instruction<<23)>>28;;
+		regAE=(instruction<<23)>>28;
 		regWRE=0;
+	}
+	else if(opCode==9){
+		//ADDE
+		regA=0;
+		regB=0;
+		regWR=0;
+		upperF=false;
+		lowerF=false;
+		regRD=false;
+		wrF=false;
+		wrFO=false;
+		op=5;
+		flagM=2;
+		RD=false;
+		WR=false;
+		rdFE=true;
+		wrFE=true;
+		regAE=(instruction<<27)>>28;
+		regWRE=(instruction<<23)>>28;
 	}
 
 

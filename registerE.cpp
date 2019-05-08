@@ -12,7 +12,6 @@ private:
 public:
 	RegisterE():regWR(0), regA(0), wrF(false), rdF(false){
 		reg[0]=0;
-		reg[1]=4;
 	} 
 	void write(int);
 	int read();

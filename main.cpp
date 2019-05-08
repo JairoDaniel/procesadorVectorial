@@ -43,7 +43,7 @@ Adder *sumE;
 
 void connections(){
     int it=0;
-    while(it<4){
+    while(it<1){
     busPcOut->setData(pc->getPc());
     sum->add(busPcOut->getData(), 1);
     //muxPc->setA(busPcOut->getData());
@@ -106,7 +106,7 @@ void connections(){
     regE->setWR(dec->regWRE);
 
     LSUnit->setDir(regE->read());
-    sumE->add(regE->read(), 1);
+    sumE->add(regE->read(), 4);
     regE->write(sumE->getResult());
     regV->write(LSUnit->readData());
     LSUnit->storeData(regV->readStore());
@@ -145,8 +145,8 @@ int main() {
     sumE = new Adder();
     dec = new Decoder();
 
-    connections();
 
+    connections();
 
 
 
