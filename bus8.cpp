@@ -2,18 +2,18 @@
 
 class Bus8{
 private:
-	char data;
+	unsigned char data;
 public:
 	Bus8():data(0){}
-	char getData();
-	void setData(char)
+	unsigned char getData();
+	void setData(unsigned char)
 
 };
 
-void Bus8::setData(char pData){
+void Bus8::setData(unsigned char pData){
 	data=pData;
 }
 
-char Bus8::getData(){
+unsigned char Bus8::getData(){
 	return data;
 }

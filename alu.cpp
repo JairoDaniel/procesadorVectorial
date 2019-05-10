@@ -2,22 +2,22 @@
 class Alu{
 private:
 	uint8_t op;
-	char a, b;
-	char addV();
-	char xorV();
-	char subV();
-	char sclV();
-	char scrV();
+	unsigned char a, b;
+	unsigned char addV();
+	unsigned char xorV();
+	unsigned char subV();
+	unsigned char sclV();
+	unsigned char scrV();
 public:
 	Alu():a(0),b(0), op(0){}
-	void setData(char, char);
+	void setData(unsigned char, unsigned char);
 	void setOp(uint8_t);
-	char function();
+	unsigned char function();
 	
 	
 };
 
-char Alu::function(){
+unsigned char Alu::function(){
 	switch(op){
 		case 0:
 			addV();
@@ -41,7 +41,7 @@ char Alu::function(){
 }
 
 
-void Alu::setData(char pA, char pB){
+void Alu::setData(unsigned char pA, unsigned char pB){
 		a = pA;
 		b= pB;
 }
@@ -50,18 +50,18 @@ void Alu::setOp(uint8_t pOp){
 		op=pOp;
 }
 
-char Alu::addV(){
+unsigned char Alu::addV(){
 		return a+b;
 	}
-char Alu::xorV(){
+unsigned char Alu::xorV(){
 	return a^b;
 }
-char Alu::subV(){
+unsigned char Alu::subV(){
 		return a-b;
 	}
 
-char Alu::sclV(){
-	char temp;
+unsigned char Alu::sclV(){
+	unsigned char temp;
 	int8_t i;
 	for (i = 0; i < b; i++){
 		temp = a>>7;
@@ -71,8 +71,8 @@ char Alu::sclV(){
 	return a;
 }
 
-char Alu::scrV(){
-	char temp;
+unsigned char Alu::scrV(){
+	unsigned char temp;
 	int8_t i;
 	for (i = 0; i < b; i++){
 		temp = a&1;

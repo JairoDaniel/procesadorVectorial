@@ -33,8 +33,8 @@ public:
 	bool getRD();
 	bool getWR();
 	int getDir();
-	std::array<char,4> readData();
-	void storeData(std::array<char,4>);
+	std::array<unsigned char,4> readData();
+	void storeData(std::array<unsigned char,4>);
 
 };
 
@@ -75,8 +75,8 @@ bool LoadStoreUnit::getWR(){
 	return WR;
 }
 
-std::array<char,4> LoadStoreUnit::readData(){
-	std::array<char,4> temp = {0,0,0,0};
+std::array<unsigned char,4> LoadStoreUnit::readData(){
+	std::array<unsigned char,4> temp = {0,0,0,0};
 	if(RD==true){
 		if(flagM == 0){
 			if(direction<BASEM2)
@@ -94,7 +94,7 @@ std::array<char,4> LoadStoreUnit::readData(){
 	return temp;
 }
 
-void LoadStoreUnit::storeData(std::array<char,4> dataV){
+void LoadStoreUnit::storeData(std::array<unsigned char,4> dataV){
 	if(WR==true){
 		if(flagM == 0){
 			if(direction<BASEM2)

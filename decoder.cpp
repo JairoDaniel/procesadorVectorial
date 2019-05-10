@@ -65,7 +65,7 @@ void Decoder::decode(){
 		regWRE=0;
 	}
 	else if(opCode==2){
-		//SUBV
+		//XORV
 		regA=(instruction<<24)>>28;
 		regB=(instruction<<28)>>28;
 		regWR=(instruction<<20)>>28;

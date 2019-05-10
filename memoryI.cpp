@@ -9,7 +9,7 @@ private:
 	std::array<int,100>data;
 public:
 	MemoryI(): direction(0){
-		std::ifstream file("code.txt");
+		std::ifstream file("binary.txt");
 		if (file.is_open()) {
 			std::string line;
 			int i=0;

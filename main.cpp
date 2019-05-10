@@ -84,7 +84,7 @@ void connections(){
     aluV6->setData((int8_t)(busRegV1->getData())[6],(int8_t)(busRegV2->getData())[6] );
     aluV7->setData((int8_t)(busRegV1->getData())[7],(int8_t)(busRegV2->getData())[7] );
     
-    std::array<char,8> temp;
+    std::array<unsigned char,8> temp;
     temp[0]= aluV0->function();
     temp[1]= aluV1->function();
     temp[2]= aluV2->function();
@@ -119,7 +119,7 @@ void connections(){
 
 }
 
-int main() { 
+int main() {
     pc = new Pc();
     sum = new Adder();
     muxPc = new Mux21();

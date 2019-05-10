@@ -6,3 +6,5 @@ g++ main.cpp -o arch -std=c++11
 
 Correr como:
 ./arch
+
+Para el compilador instalar PLY
