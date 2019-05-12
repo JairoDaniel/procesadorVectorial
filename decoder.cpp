@@ -28,9 +28,9 @@ void Decoder::decode(){
 	opCode=instruction>>26;
 	if(opCode==0){
 		//ADDV
-		regA=(instruction<<24)>>28;
-		regB=(instruction<<28)>>28;
-		regWR=(instruction<<20)>>28;
+		regA=(instruction>>4)&15;
+		regB=(instruction&15);
+		regWR=(instruction>>8)&15;
 		upperF=false;
 		lowerF=false;
 		regRD=true;
@@ -47,9 +47,9 @@ void Decoder::decode(){
 	}
 	else if(opCode==1){
 		//SUBV
-		regA=(instruction<<24)>>28;
-		regB=(instruction<<28)>>28;
-		regWR=(instruction<<20)>>28;
+		regA=(instruction>>4)&15;
+		regB=(instruction&15);
+		regWR=(instruction>>8)&15;
 		upperF=false;
 		lowerF=false;
 		regRD=true;
@@ -66,9 +66,9 @@ void Decoder::decode(){
 	}
 	else if(opCode==2){
 		//XORV
-		regA=(instruction<<24)>>28;
-		regB=(instruction<<28)>>28;
-		regWR=(instruction<<20)>>28;
+		regA=(instruction>>4)&15;
+		regB=(instruction&15);
+		regWR=(instruction>>8)&15;
 		upperF=false;
 		lowerF=false;
 		regRD=true;
@@ -85,9 +85,9 @@ void Decoder::decode(){
 	}
 	else if(opCode==3){
 		//SCLV
-		regA=(instruction<<24)>>28;
-		regB=(instruction<<28)>>28;
-		regWR=(instruction<<20)>>28;
+		regA=(instruction>>4)&15;
+		regB=(instruction&15);
+		regWR=(instruction>>8)&15;
 		upperF=false;
 		lowerF=false;
 		regRD=true;
@@ -104,9 +104,9 @@ void Decoder::decode(){
 	}
 	else if(opCode==4){
 		//SCRV
-		regA=(instruction<<24)>>28;
-		regB=(instruction<<28)>>28;
-		regWR=(instruction<<20)>>28;
+		regA=(instruction>>4)&15;
+		regB=(instruction&15);
+		regWR=(instruction>>8)&15;
 		upperF=false;
 		lowerF=false;
 		regRD=true;
@@ -125,43 +125,43 @@ void Decoder::decode(){
 		//LDVU
 		regA=0;
 		regB=0;
-		regWR=(instruction<<27)>>28;
+		regWR=(instruction>>8)&15;
 		upperF=true;
 		lowerF=false;
 		regRD=false;
 		wrF=true;
 		wrFO=false;
 		op=5;
-		flagM=(instruction<<31)>>31;
+		flagM=instruction&1;
 		RD=true;
 		WR=false;
 		rdFE=true;
 		wrFE=false;
-		regAE=(instruction<<23)>>28;
+		regAE=((instruction>>4)&15);
 		regWRE=0;
 	}
 	else if(opCode==6){
 		//LDVL
 		regA=0;
 		regB=0;
-		regWR=(instruction<<27)>>28;
+		regWR=(instruction>>8)&15;
 		upperF=false;
 		lowerF=true;
 		regRD=false;
 		wrF=true;
 		wrFO=false;
 		op=5;
-		flagM=(instruction<<31)>>31;
+		flagM=instruction&1;
 		RD=true;
 		WR=false;
 		rdFE=true;
 		wrFE=false;
-		regAE=(instruction<<23)>>28;
+		regAE=((instruction>>4)&15);
 		regWRE=0;
 	}
 	else if(opCode==7){
 		//STVU
-		regA=(instruction<<27)>>28;
+		regA=(instruction>>8)&15;
 		regB=0;
 		regWR=0;
 		upperF=true;
@@ -170,17 +170,17 @@ void Decoder::decode(){
 		wrF=false;
 		wrFO=false;
 		op=5;
-		flagM=(instruction<<31)>>31;
+		flagM=instruction&1;
 		RD=false;
 		WR=true;
 		rdFE=true;
 		wrFE=false;
-		regAE=(instruction<<23)>>28;
+		regAE=((instruction>>4)&15);
 		regWRE=0;
 	}
 	else if(opCode==8){
 		//STVL
-		regA=(instruction<<27)>>28;
+		regA=(instruction>>8)&15;
 		regB=0;
 		regWR=0;
 		upperF=false;
@@ -189,12 +189,12 @@ void Decoder::decode(){
 		wrF=false;
 		wrFO=false;
 		op=5;
-		flagM=(instruction<<31)>>31;
+		flagM=instruction&1;
 		RD=false;
 		WR=true;
 		rdFE=true;
 		wrFE=false;
-		regAE=(instruction<<23)>>28;
+		regAE=((instruction>>4)&15);
 		regWRE=0;
 	}
 	else if(opCode==9){
@@ -213,8 +213,8 @@ void Decoder::decode(){
 		WR=false;
 		rdFE=true;
 		wrFE=true;
-		regAE=(instruction<<27)>>28;
-		regWRE=(instruction<<23)>>28;
+		regAE=(instruction>>4)&15;
+		regWRE=(instruction>>8)&15;
 	}
 
 

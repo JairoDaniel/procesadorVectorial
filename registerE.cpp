@@ -12,6 +12,10 @@ private:
 public:
 	RegisterE():regWR(0), regA(0), wrF(false), rdF(false){
 		reg[0]=0;
+		reg[1]=9216;
+		reg[6]=9216;
+		reg[4]=0;
+		reg[3]=0;
 	} 
 	void write(int);
 	int read();

@@ -9,24 +9,17 @@ class MemoryD{
 private:
 	std::array<unsigned char, 20000> mem;
 public:	
-	void saveData(int,std::array<unsigned char,4>);
-	std::array<unsigned char,4> readData(int);
+	void saveData(int,unsigned char);
+	unsigned char readData(int);
 };
 
-void MemoryD::saveData(int pposMem, std::array<unsigned char,4> pdata){
-	for (int i = 0; i < 4; i++){
-		mem[pposMem+i]= pdata[i];
-	}
-
+void MemoryD::saveData(int pposMem, unsigned char pdata){
+	usleep(1);
+	mem[pposMem]= pdata;
 }
 
-std::array<unsigned char,4> MemoryD::readData(int pposMem){
-	std::array<unsigned char,4> temp;
-	for(int i = 0; i < 4; i++){
-		usleep(1);
-		temp[i]=mem[pposMem+i];
-	}
-
-	return temp;
+unsigned char MemoryD::readData(int pposMem){
+	usleep(1);
+	return mem[pposMem];
 }
 

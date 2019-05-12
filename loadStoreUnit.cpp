@@ -1,7 +1,11 @@
 #include <stdlib.h> 
 #include "constants.h"
-#include "memoryD.cpp"
+#include "memoryD.cpp"	
+#include <cv.h>
+#include <highgui.h>
+#include <opencv2/imgproc/imgproc.hpp>
 
+using namespace cv;
 class LoadStoreUnit{
 private:
 	MemoryD * mem1;
@@ -23,7 +27,34 @@ public:
     	mem2 = new MemoryD();
     	mem3 = new MemoryD();
     	mem4 = new MemoryD();
-		}
+    	Mat image;
+		
+		image = imread( "./Resources/original96.jpg", 1 );
+		Mat gray_image;
+ 		cvtColor( image, gray_image, CV_BGR2GRAY );
+ 		std::array<unsigned char,4> pdata= {0,0,0,0};
+ 		int cont=0;
+ 		int posMem = 0;
+ 		for (int i=0; i<gray_image.rows; i++){
+ 			for(int j=0; j<gray_image.cols; j++){
+ 					mem1->saveData(posMem, gray_image.at<unsigned char>(i,j));
+ 					posMem++;
+ 			}
+ 		}
+ 		pdata[0]=255;
+ 		pdata[1]=20;
+ 		pdata[2]=68;
+ 		pdata[3]=145;
+ 		for(int i=0; i<4; i++)
+ 			mem1->saveData(9216+i, pdata[i]);
+ 		pdata[0]=89;
+ 		pdata[1]=200;
+ 		pdata[2]=45;
+ 		pdata[3]=9;
+ 		for(int i=0; i<4; i++)
+ 			mem1->saveData(9220+i, pdata[i]);
+
+	}
 	void setDir(int);
 	void setRegWR(int8_t);
 	void setFlagM(int8_t);
@@ -35,6 +66,7 @@ public:
 	int getDir();
 	std::array<unsigned char,4> readData();
 	void storeData(std::array<unsigned char,4>);
+	
 
 };
 
@@ -79,16 +111,24 @@ std::array<unsigned char,4> LoadStoreUnit::readData(){
 	std::array<unsigned char,4> temp = {0,0,0,0};
 	if(RD==true){
 		if(flagM == 0){
-			if(direction<BASEM2)
-				temp = mem1->readData(direction);
-			else
-				temp = mem2->readData(direction-BASEM2);
+			if(direction<BASEM2){
+				for (int i = 0; i < 4; i++)
+					temp[i]=mem1->readData(direction+i);
+			}
+			else{
+				for (int i = 0; i < 4; i++)
+					temp[i]=mem2->readData(direction-BASEM2+i);
+			}
 		}
 		else{
-			if(direction<BASEM2)
-				temp = mem3->readData(direction);
-			else
-				temp = mem4->readData(direction-BASEM2);
+			if(direction<BASEM2){
+				for (int i = 0; i < 4; i++)
+					temp[i]=mem3->readData(direction+i);
+			}
+			else{
+				for (int i = 0; i < 4; i++)
+					temp[i]=mem4->readData(direction-BASEM2+i);
+			}
 		}
 	}
 	return temp;
@@ -97,16 +137,24 @@ std::array<unsigned char,4> LoadStoreUnit::readData(){
 void LoadStoreUnit::storeData(std::array<unsigned char,4> dataV){
 	if(WR==true){
 		if(flagM == 0){
-			if(direction<BASEM2)
-				mem1->saveData(direction, dataV);
-			else
-				mem2->saveData(direction-BASEM2, dataV);
+			if(direction<BASEM2){
+				for (int i = 0; i < 4; i++)
+					mem1->saveData(direction+i, dataV[i]);
+			}
+			else{
+				for (int i = 0; i < 4; i++)
+					mem2->saveData(direction-BASEM2+i, dataV[i]);
+			}
 		}
 		else{
-			if(direction<BASEM2)
-				mem3->saveData(direction, dataV);
-			else
-				mem4->saveData(direction-BASEM2, dataV);
+			if(direction<BASEM2){
+				for (int i = 0; i < 4; i++)
+					mem3->saveData(direction+i, dataV[i]);
+			}
+			else{
+				for (int i = 0; i < 4; i++)
+					mem4->saveData(direction-BASEM2+i, dataV[i]);
+			}
 		}
 	}
 }

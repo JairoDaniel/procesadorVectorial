@@ -6,7 +6,7 @@
 class MemoryI{
 private:
 	int direction;
-	std::array<int,100>data;
+	std::array<int,42000>data;
 public:
 	MemoryI(): direction(0){
 		std::ifstream file("binary.txt");

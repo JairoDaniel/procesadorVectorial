@@ -20,23 +20,17 @@ public:
 unsigned char Alu::function(){
 	switch(op){
 		case 0:
-			addV();
-			break;
+			return addV();
 		case 1:
-			subV();
-			break;
+			return subV();
 		case 2:
-			xorV();
-			break;
+			return xorV();
 		case 3:
-			sclV();
-			break;
+			return sclV();
 		case 4:
-			scrV();
-			break;
+			return scrV();
 		default:
 			return 0;
-			break;
 	}
 }
 
@@ -62,7 +56,7 @@ unsigned char Alu::subV(){
 
 unsigned char Alu::sclV(){
 	unsigned char temp;
-	int8_t i;
+	uint8_t i;
 	for (i = 0; i < b; i++){
 		temp = a>>7;
 		a=a<<1;
@@ -73,7 +67,7 @@ unsigned char Alu::sclV(){
 
 unsigned char Alu::scrV(){
 	unsigned char temp;
-	int8_t i;
+	uint8_t i;
 	for (i = 0; i < b; i++){
 		temp = a&1;
 		temp=temp<<7;

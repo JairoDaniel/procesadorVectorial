@@ -11,6 +11,9 @@ private:
 	int8_t regA, regB, regWR;
 public:
 	RegisterV():regWR(0), regA(0), regB(0), upperF(false), lowerF(false), wrF(false), wrFO(false),regRD(false){
+		for(int i=0; i<10; i++){
+			reg[i]={0,0,0,0,0,0,0,0};
+		}
 	} 
 	void write(std::array<unsigned char,4>);
 	void writeOp(std::array<unsigned char,8>);
@@ -67,15 +70,14 @@ std::array<unsigned char,4> RegisterV::readStore(){
 	std::array<unsigned char,4> temp = {0,0,0,0};
 	if(regRD==true){
 		if(upperF==true){
-			for (int i = 3; i >=0 ; i--)
+			for(int i = 3; i >=0 ; i--)
 				temp[i]=reg[regA][i];
 		}
 		else{
-			for (int i = 7; i >= 4; i--)
+			for(int i = 7; i >= 4; i--)
 				temp[i-4]=reg[regA][i];
 		}
 	}
-	
 	return temp;
 }
 
