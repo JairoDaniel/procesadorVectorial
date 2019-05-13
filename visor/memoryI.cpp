@@ -8,13 +8,19 @@ private:
 	int direction;
 	std::array<int,42000>data;
 public:
-	MemoryI(): direction(0){
-		std::ifstream file("binary.txt");
+    int i=0;
+	MemoryI(char alg): direction(0){
+        std::ifstream file;
+		if(alg=='0')
+            file.open("/home/jairo/Desktop/gui/visor/SRCode.txt");
+		else if(alg=='1')
+            file.open("/home/jairo/Desktop/gui/visor/xorCode.txt");
+		else if(alg=='2')
+            file.open("/home/jairo/Desktop/gui/visor/shiftCode.txt");
 		if (file.is_open()) {
-			std::string line;
-			int i=0;
+            std::string line;
 	        while (getline(file, line)) {
-	        	data[i]=std::stoi(line.c_str(),nullptr,2);
+                data[i]=std::stoi(line.c_str(),nullptr,2);
 	        	i++;
 	        }
 	        file.close();

@@ -6,7 +6,7 @@ ldvu V2 R0 0
 adde R0 R0
 ldvl V2 R0 0
 adde R0 R0
-xorv V4 V2 V0
+scrv V4 V2 V0
 stvu V4 R4 1
 adde R4 R4
 stvl V4 R4 1
@@ -17,7 +17,7 @@ ldvu V4 R3 1
 adde R3 R3
 ldvl V4 R3 1
 adde R3 R3
-xorv V2 V4 V0
+sclv V2 V4 V0
 stvu V2 R6 1
 adde R6 R6
 stvl V2 R6 1

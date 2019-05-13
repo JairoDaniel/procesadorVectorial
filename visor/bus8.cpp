@@ -6,7 +6,7 @@ private:
 public:
 	Bus8():data(0){}
 	unsigned char getData();
-	void setData(unsigned char)
+    void setData(unsigned char);
 
 };
 

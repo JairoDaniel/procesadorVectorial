@@ -4,12 +4,12 @@ private:
 	int result;
 public:
 	Adder():result(0){}
-	int add(int, int);
+        void add(int, int);
 	int getResult();
 
 };
 
-int Adder::add(int a, int b){
+void Adder::add(int a, int b){
 	result = a+b;
 }
 

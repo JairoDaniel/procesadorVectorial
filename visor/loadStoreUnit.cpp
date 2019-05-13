@@ -29,16 +29,15 @@ public:
     	mem4 = new MemoryD();
     	Mat image;
 		
-		image = imread( "./Resources/original96.jpg", 1 );
+        image = imread( "../Resources/original96.jpg", 1 );
 		Mat gray_image;
  		cvtColor( image, gray_image, CV_BGR2GRAY );
- 		std::array<unsigned char,4> pdata= {0,0,0,0};
- 		int cont=0;
+                std::array<unsigned char,4> pdata= {0,0,0,0};
  		int posMem = 0;
  		for (int i=0; i<gray_image.rows; i++){
- 			for(int j=0; j<gray_image.cols; j++){
- 					mem1->saveData(posMem, gray_image.at<unsigned char>(i,j));
- 					posMem++;
+            for(int j=0; j<gray_image.cols; j++){
+                mem1->saveData(posMem, gray_image.at<unsigned char>(i,j));
+                posMem++;
  			}
  		}
  		pdata[0]=255;
