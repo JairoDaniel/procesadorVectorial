@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <fstream>
+#include <unistd.h>
 #include <array>
 #include <cv.h>
 #include <highgui.h>
@@ -59,6 +60,7 @@ int it=0;
 void connections(){
     int it=0;
     while(it<memI->i){
+        usleep(1);
         busPcOut->setData(pc->getPc());
         sumPc->add(busPcOut->getData(), 1);
 
@@ -125,6 +127,8 @@ void connections(){
         regV->write(LSUnit->readData());
         LSUnit->storeData(regV->readStore());
         it++;
+
+        usleep(1);
     }
 }
 
